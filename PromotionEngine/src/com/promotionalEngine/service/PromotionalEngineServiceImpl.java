@@ -32,7 +32,8 @@ public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	
 	public boolean updateRepository(SKU skuUnit)
 	{
-		skuRepository.put(skuUnit.getSKUID(), skuUnit);
+		
+		getRepository().put(skuUnit.getSKUID(), skuUnit);
 		return true;
 	}
 	
