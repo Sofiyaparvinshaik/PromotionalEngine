@@ -17,16 +17,13 @@ import com.promotionalEngine.helper.PromotionalEngineHelper;
 public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	
 	
-	private static HashMap<String,SKU> skuRepository=null;
+	private static HashMap<String,SKU> skuRepository=new HashMap<String,SKU>();
 	
 	
 	
-	public HashMap<String,SKU> getRepository()
+	public static HashMap<String,SKU> getRepository()
 	{
-		if(skuRepository==null)
-		{
-			return new HashMap<String,SKU>();
-		}
+		
 		return skuRepository;
 	}
 	
