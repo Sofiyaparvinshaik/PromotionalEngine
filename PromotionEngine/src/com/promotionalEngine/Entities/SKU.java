@@ -4,7 +4,7 @@ public class SKU {
 	
 	String SKUID;
 	Integer unitPrice;
-	PromotionalDetails promotionalDetails;
+	PromotionalDetails promotionalDetails=null;
 	
 	
 	public SKU(String sKUID, Integer unitPrice) {

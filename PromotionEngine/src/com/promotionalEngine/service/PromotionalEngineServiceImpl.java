@@ -9,8 +9,10 @@ import com.promotionalEngine.PromotionalEngine;
 import com.promotionalEngine.Entities.Items;
 import com.promotionalEngine.Entities.PromotionVocher;
 import com.promotionalEngine.Entities.PromotionalDetails;
+import com.promotionalEngine.Entities.ResultEntity;
 import com.promotionalEngine.Entities.SKU;
 import com.promotionalEngine.PromotionalEngineException.PromotionalEngineException;
+import com.promotionalEngine.helper.PromotionalEngineHelper;
 
 public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	
@@ -95,20 +97,20 @@ public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	public Integer getCartTotal(List<Items> cart) {
 		// TODO Auto-generated method stub
 		
-		
+		HashMap<String,SKU> repo=getRepository();
+		Integer Total=0;
+		List<ResultEntity> results=new ArrayList<ResultEntity>();
 		for(Items item:cart)
-		{
-			
-			
-			
-			
-			
-			
+		{  
+		results.add(PromotionalEngineHelper.getPriceForItem(item,repo.get(item.getSKUID())));	
 		}
 		
+		for(ResultEntity re:results)
+		{
+			Total=Total+Math.min(re.getActualPrice(),re.getPromotionPrice());	
+		}
 		
-		
-		return null;
+		return Total;
 	}
 	
 	@Override
