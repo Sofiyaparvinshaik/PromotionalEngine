@@ -3,9 +3,11 @@ package com.promotionalEngine.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.promotionalEngine.PromotionalEngine;
 import com.promotionalEngine.Entities.Items;
+import com.promotionalEngine.Entities.PromotionVocher;
 import com.promotionalEngine.Entities.PromotionalDetails;
 import com.promotionalEngine.Entities.SKU;
 import com.promotionalEngine.PromotionalEngineException.PromotionalEngineException;
@@ -32,10 +34,16 @@ public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 		return true;
 	}
 	
-	public SKU getSKUUnitForPromotionalDetails(PromotionalDetails promo)
+	public List<SKU> getSKUUnitForPromotionalDetails(PromotionalDetails promo)
 	{
 	 
-		return getRepository().get(promo.getSKUID());
+	    List<SKU> listOfSKU=new ArrayList<SKU>();	
+		for(Entry<String,Integer> promovocher: promo.getPromtionVocher().entrySet())
+		{
+	     listOfSKU.add(getRepository().get(promovocher.getKey()));               		
+		}
+		
+		return listOfSKU;
 		
 	}
 
@@ -56,16 +64,18 @@ public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	public boolean addorupdatePromotionalDetailsRepository(PromotionalDetails activePromotions) throws PromotionalEngineException {
 		
 		
-		SKU sku=getSKUUnitForPromotionalDetails(activePromotions);
-		if(sku!=null)
+		List<SKU> skulist=getSKUUnitForPromotionalDetails(activePromotions);
+		for(SKU sku:skulist)
 		{
 		sku.setPromotionalDetails(activePromotions);
-		return true;
 		}
-	
-	    throw new PromotionalEngineException("Unable to udpate the PromotionalDetails for respective SKU please contact administrator to add SKU Unit");
-	
 		
+		if(skulist.size()==0)
+		{
+	    throw new PromotionalEngineException("Unable to udpate the PromotionalDetails for respective SKU please contact administrator to add SKU Unit");
+		}
+		
+		return true;	
 	}
 
 	@Override
@@ -84,13 +94,19 @@ public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	@Override
 	public Integer getCartTotal(List<Items> cart) {
 		// TODO Auto-generated method stub
+		int total;
+		
+		
+		
 		return null;
 	}
 	
 	@Override
-	public boolean clearCart() {
+	public boolean clearCart(List<Items> cart) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		 cart.clear();
+		 return true;
 	}
 
 	@Override

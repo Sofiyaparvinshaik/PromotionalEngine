@@ -24,6 +24,6 @@ public interface IPromotionalEngine {
 	
 	public List<Items> getCart();
 	
-	public boolean clearCart();
+	public boolean clearCart(List<Items> cart);
 
 }
