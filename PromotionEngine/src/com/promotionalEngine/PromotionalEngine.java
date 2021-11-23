@@ -14,11 +14,13 @@ import com.promotionalEngine.service.PromotionalEngineServiceImpl;
 public class PromotionalEngine {
 	
 	
+	IPromotionalEngine engine=new PromotionalEngineServiceImpl();	
+
+	   
 	
-	public static void main(String a[]) throws PromotionalEngineException
+	public void addingToRepo() throws PromotionalEngineException 
 	{
 	
-		IPromotionalEngine engine=new PromotionalEngineServiceImpl();
 		System.out.println("Adding SKU ID to Repository");
 		SKU skuA=new SKU("A",50);
 		SKU skuB=new SKU("B",30);
@@ -53,7 +55,11 @@ public class PromotionalEngine {
 		engine.addorupdatePromotionalDetailsRepository(promB);
 		engine.addorupdatePromotionalDetailsRepository(promC);
 		engine.addorupdatePromotionalDetailsRepository(promD);
-		
+	}
+	
+	
+	public void addToCart()
+	{
 		Items it1=new Items("A", 4);
 		Items it2=new Items("B", 4);
 		Items it3=new Items("C", 2);
@@ -66,11 +72,11 @@ public class PromotionalEngine {
 			
 			System.out.println("GrandTotal="+engine.getCartTotal(itemList));
 
-		
+	}		
 		
 		
 				
-	}
+	
 	
 
 }
