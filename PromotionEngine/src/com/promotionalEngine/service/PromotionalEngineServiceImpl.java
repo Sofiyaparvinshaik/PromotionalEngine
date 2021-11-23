@@ -94,7 +94,17 @@ public class PromotionalEngineServiceImpl implements IPromotionalEngine{
 	@Override
 	public Integer getCartTotal(List<Items> cart) {
 		// TODO Auto-generated method stub
-		int total;
+		
+		
+		for(Items item:cart)
+		{
+			
+			
+			
+			
+			
+			
+		}
 		
 		
 		
